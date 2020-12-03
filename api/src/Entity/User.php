@@ -27,7 +27,7 @@ class User implements UserInterface
     {
         $this->id = Uuid::v4()->toRfc4122();
         $this->name = $name;
-        $this->email = $this->setEmail($email);
+        $this->setEmail($email);
         $this->password = $password;
         $this->avatar = null;
         $this->token =  \sha1(\uniqid());

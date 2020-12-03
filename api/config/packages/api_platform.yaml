@@ -12,4 +12,4 @@ api_platform:
                 type: header
     title: Symfony API Platform
     version: 1.0
-    show_webby: false
+    show_webby: true

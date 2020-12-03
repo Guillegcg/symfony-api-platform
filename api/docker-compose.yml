@@ -29,7 +29,7 @@ services:
     
     volumes:
       - ./:/appdata/www
-      - ./docker/php/xdebug-linux.ini:/usr/local/etx/php/conf.d/xdebug.ini
+      - ./docker/php/xdebug-linux.ini:/usr/local/etc/php/conf.d/xdebug.ini
       - ~/.ssh/id_rsa:/home/caitox/.ssh/id_rsa
     depends_on: 
       - symfony-api-platform-db
@@ -49,6 +49,20 @@ services:
     command: mysqld --sql_mode="STRICT_ALL_TABLES,NO_ENGINE_SUBSTITUTION"
     volumes: 
       - symfony-api-platform-db-data:/var/lib/mysql
+    networks: 
+      - symfony-api-platform-network
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8082:80"
+    environment:
+      - PMA_USER=root
+      - PMA_PASSWORD=holaloca
+      - PHP_UPLOAD_MAX_FILESIZE=100MB
+      - PMA_HOST=symfony-api-platform-db
+    depends_on: 
+      - symfony-api-platform-db
     networks: 
       - symfony-api-platform-network
 
